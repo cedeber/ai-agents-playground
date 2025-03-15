@@ -1,8 +1,9 @@
 from pathlib import Path
 from dotenv import load_dotenv
 from agents import Agent, Runner
+import asyncio
 
-def main():
+async def main():
     # Charger les variables d'environnement depuis .env.local
     dotenv_path = Path(".env.local")
     load_dotenv(dotenv_path=dotenv_path)
@@ -15,8 +16,8 @@ def main():
         handoffs=[example_agent]
     )
 
-    result = Runner.run_sync(triage_agent, "Write a haiku about recursion in programming.")
+    result = await Runner.run(triage_agent, "Write a haiku about recursion in programming.")
     print(result.final_output)
 
 if __name__ == "__main__":
-    main()
+	asyncio.run(main())
